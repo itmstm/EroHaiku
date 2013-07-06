@@ -1,0 +1,13 @@
+<resources>
+
+    <string name="app_name">EroHaiku</string>
+    <string name="title_section1">上の句</string>
+    <string name="title_section2">中の句</string>
+    <string name="title_section3">下の句</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">えろはいく</string>
+    <string name="ku_frag_mesg">テスト</string>
+    <string name="register_button_string">登録</string>
+
+</resources>
