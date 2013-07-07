@@ -9,11 +9,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
+public class MainActivity extends FragmentActivity 
+	implements ActionBar.TabListener, KuListFragment.OnListItemSelectedListener {
 
     private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 	private static final String TAG = "MainActivity";
 	private KuListManager mKuListManager;
+	private int mSelectedTab;
+	private KuContainterFragment mKuContainerFragment;
+	private KuListFragment mKuListFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,21 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         actionBar.addTab(actionBar.newTab().setText(R.string.title_section2).setTabListener(this));
         actionBar.addTab(actionBar.newTab().setText(R.string.title_section3).setTabListener(this));
         
+        
+        // 句を入れるFragment の初期化
+        mKuContainerFragment = new KuContainterFragment();
+        mKuContainerFragment.setKuListManager( mKuListManager );
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.ku_container, mKuContainerFragment)
+                .commit(); 
+
+	     // 句のリストを表示するFragmentの初期化
+        mKuListFragment = new KuListFragment();
+        mKuListFragment.setKuListManager( mKuListManager );
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, mKuListFragment)
+                .commit();
         Log.d(TAG, "onCreate ends");
     }
 
@@ -75,21 +94,17 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        // When the given tab is selected, show the tab contents in the container
-        Bundle args = new Bundle();
-        args.putInt(KuListFragment.ARG_SECTION_NUMBER, tab.getPosition() + 1);
-        
-        KuListFragment fragment = new KuListFragment();
-        fragment.setArguments(args);
-        fragment.setKuListManager( mKuListManager );
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, fragment)
-                .commit();
-        
+    	mSelectedTab = tab.getPosition();
+    	mKuListFragment.updateKuList( mSelectedTab );
         Log.d(TAG, "Tab selected:" + tab.toString());
     }
 
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
     }
+
+	@Override
+	public void onListItemSelected(int position) {
+		mKuContainerFragment.setKu(mSelectedTab, position);
+	}
 }

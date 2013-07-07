@@ -27,6 +27,23 @@ public class KuListManager {
 	private static String mNaka;
 	private static String mShita;
 
+	public static void setmShitaList(ArrayList<String> mShitaList) {
+		KuListManager.mShitaList = mShitaList;
+	}
+
+	public static String getUeKu() {
+		return mUe;
+	}
+
+	public static String getNakaKu() {
+		return mNaka;
+	}
+
+	public static String getShitaKu() {
+		return mShita;
+	}
+
+
 	KuListManager( Context context ) {
 		initList();
 		initArrayAdapters( context );
