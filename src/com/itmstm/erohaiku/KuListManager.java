@@ -27,10 +27,6 @@ public class KuListManager {
 	private static String mNaka;
 	private static String mShita;
 
-	public static void setmShitaList(ArrayList<String> mShitaList) {
-		KuListManager.mShitaList = mShitaList;
-	}
-
 	public static String getUeKu() {
 		return mUe;
 	}
@@ -53,7 +49,6 @@ public class KuListManager {
 		mUeList = new ArrayList<String>();
 		mNakaList = new ArrayList<String>();
 		mShitaList = new ArrayList<String>();
-		
 		
 		// 上の句
 		mUeList.add( "たそがれの" );
@@ -80,10 +75,6 @@ public class KuListManager {
 		mKuUeListAdapter = new ArrayAdapter<String>( context, R.layout.ku_list_textview, mUeList );
 		mKuNakaListAdapter = new ArrayAdapter<String>( context, R.layout.ku_list_textview, mNakaList );
 		mKuShitaListAdapter = new ArrayAdapter<String>( context, R.layout.ku_list_textview, mShitaList );
-		
-		//mKuUeListAdapter.addAll(mUeList);
-		//mKuNakaListAdapter.addAll(mNakaList);
-		//mKuShitaListAdapter.addAll(mShitaList);
 	}
 
 	public ArrayList<String> getUeList() {

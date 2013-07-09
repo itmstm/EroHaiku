@@ -46,9 +46,11 @@ public class KuListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
     	
+    	// 引数を抽出
+    	int selectedTab = getArguments().getInt(ARG_SECTION_NUMBER);
+    	
         // ListviewをXML layoutからinflate
         View view = inflater.inflate(R.layout.ku_list_fragment, container, false);
-        
         mListView = (ListView) view.findViewById(R.id.ku_frag_list_view);
         
         // listviewにListenerをセット
@@ -66,15 +68,22 @@ public class KuListFragment extends Fragment {
 			};
         });
         
+        // 句のリストを表示
+        showKuList(selectedTab);
         return view;
     }
 
-	public void updateKuList(int selectedTab) {
+	public void showKuList(int selectedTab) {
+		
+		Log.d(TAG, "showKuList(" + selectedTab + ")" );
 		
 		switch ( selectedTab ) {
 		case 1: // Ue
 			KuListManager.setSelectedTab( KuListManager.KuPosition.KU_UE );
 			mListView.setAdapter( mKuListManager.getUeAdapter());
+			
+			// Log.d(TAG, "Strings: " + mKuListManager.getUeList().get(0) );
+			
 			break;
 		case 2: // Naka
 			KuListManager.setSelectedTab( KuListManager.KuPosition.KU_NAKA );
@@ -90,6 +99,5 @@ public class KuListFragment extends Fragment {
 
 	public void setKuListManager(KuListManager listmanager) {
 		mKuListManager = listmanager;
-		
 	}
 }

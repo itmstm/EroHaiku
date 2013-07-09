@@ -32,6 +32,8 @@ public class KuContainterFragment extends Fragment {
         mNakaTextView = (TextView) view.findViewById(R.id.ku_frag_naka_text_view);
         mShitaTextView = (TextView) view.findViewById(R.id.ku_frag_shita_text_view);
 
+        mUeTextView.setText("UEEEEEEEEE");
+        
         return view;
     }
 
@@ -51,8 +53,6 @@ public class KuContainterFragment extends Fragment {
 
 	public void setKu(int selectedTab, int position) {
 		switch( selectedTab) {
-		
-		
 		}
 	}
 
