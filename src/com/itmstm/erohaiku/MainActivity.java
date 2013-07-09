@@ -106,8 +106,7 @@ public class MainActivity extends FragmentActivity
         
         kuListFragment.setKuListManager( mKuListManager );
         
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, kuListFragment)
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, kuListFragment)
                 .commit();
         
         // Fragment managerのPendingタスクの非同期実行

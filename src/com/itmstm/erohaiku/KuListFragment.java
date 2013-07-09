@@ -53,6 +53,9 @@ public class KuListFragment extends Fragment {
         View view = inflater.inflate(R.layout.ku_list_fragment, container, false);
         mListView = (ListView) view.findViewById(R.id.ku_frag_list_view);
         
+	    // 句のリストを表示
+        showKuList(selectedTab);
+        
         // listviewにListenerをセット
         mListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -68,8 +71,6 @@ public class KuListFragment extends Fragment {
 			};
         });
         
-        // 句のリストを表示
-        showKuList(selectedTab);
         return view;
     }
 
