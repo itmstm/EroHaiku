@@ -32,8 +32,6 @@ public class KuContainterFragment extends Fragment {
         mNakaTextView = (TextView) view.findViewById(R.id.ku_frag_naka_text_view);
         mShitaTextView = (TextView) view.findViewById(R.id.ku_frag_shita_text_view);
 
-        mUeTextView.setText("UEEEEEEEEE");
-        
         return view;
     }
 
@@ -51,8 +49,21 @@ public class KuContainterFragment extends Fragment {
 	    mShitaTextView.setText( KuListManager.getShitaKu() );
 	}
 
+	// リストアイテムが選択された際にコールバック経由で呼ばれる
 	public void setKu(int selectedTab, int position) {
+		
+		// 呼ばれたときに選択されているタブの位置によって句を設定する
 		switch( selectedTab) {
+		case 1: // UE
+			setUeKu();
+			break;
+		case 2: // Naka
+			setNakaKu();
+			break;
+		case 3: // Shita
+			setShitaKu();
+			break;
+		default:
 		}
 	}
 

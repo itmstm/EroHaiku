@@ -1,6 +1,7 @@
 package com.itmstm.erohaiku;
 
 import android.app.ActionBar;
+import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -21,8 +22,6 @@ public class MainActivity extends FragmentActivity
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        Log.d(TAG, "onCreate begins");
         
         mKuListManager = new KuListManager( this );
         
@@ -86,13 +85,20 @@ public class MainActivity extends FragmentActivity
         return super.onOptionsItemSelected(item);
     }
 
+	@Override
+	public void onListItemSelected(int position) {
+		Log.d(TAG, "onListItemSelected: " + position );
+		mKuContainerFragment.setKu(mSelectedTab, position);
+	}
 
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-    }
+	@Override
+	public void onTabReselected(Tab tab, FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    @Override
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+	@Override
+	public void onTabSelected(Tab tab, FragmentTransaction ft) {
         Log.d(TAG, "Tab selected:" + tab.getPosition());
     	mSelectedTab = tab.getPosition() + 1;
     	
@@ -110,15 +116,13 @@ public class MainActivity extends FragmentActivity
                 .commit();
         
         // Fragment managerのPendingタスクの非同期実行
-        getSupportFragmentManager().executePendingTransactions();
-    }
-
-    @Override
-    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-    }
+        getSupportFragmentManager().executePendingTransactions();		
+	}
 
 	@Override
-	public void onListItemSelected(int position) {
-		mKuContainerFragment.setKu(mSelectedTab, position);
+	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+		
 	}
+
 }

@@ -1,8 +1,10 @@
 package com.itmstm.erohaiku;
 
+import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,9 @@ public class KuListFragment extends Fragment {
 
 	public interface OnListItemSelectedListener {
         public void onListItemSelected(int position);
+		//void onTabUnselected(Tab tab, FragmentTransaction fragmentTransaction);
+		//void onTabSelected(Tab tab, FragmentTransaction fragmentTransaction);
+		//void onTabReselected(Tab tab, FragmentTransaction fragmentTransaction);
     }
 
 	@Override
@@ -52,7 +57,7 @@ public class KuListFragment extends Fragment {
         // ListviewをXML layoutからinflate
         View view = inflater.inflate(R.layout.ku_list_fragment, container, false);
         mListView = (ListView) view.findViewById(R.id.ku_frag_list_view);
-        
+
 	    // 句のリストを表示
         showKuList(selectedTab);
         
