@@ -1,5 +1,7 @@
 package com.itmstm.erohaiku;
 
+import com.google.cloud.backend.android.CloudBackendActivity;
+
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
@@ -19,10 +21,16 @@ public class MainActivity extends FragmentActivity
 	private int mSelectedTab;
 	private KuContainterFragment mKuContainerFragment;
 
+	// 委譲用のクラス
+	CloudBackendActivity mCloudBackendActivity;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
+		// CloudBackendActivity の委譲 (Delegate)
+        mCloudBackendActivity = new CloudBackendActivity();
+
         mKuListManager = new KuListManager( this );
         
         // set listview
