@@ -1,18 +1,19 @@
 package com.itmstm.erohaiku;
 
-import com.google.cloud.backend.android.CloudBackendActivity;
-
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
-public class MainActivity extends FragmentActivity 
+import com.google.cloud.backend.android.CloudBackendActivity;
+
+public class MainActivity extends CloudBackendActivity
 	implements ActionBar.TabListener, KuListFragment.OnListItemSelectedListener {
 
     private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
@@ -20,21 +21,30 @@ public class MainActivity extends FragmentActivity
 	private KuListManager mKuListManager;
 	private int mSelectedTab;
 	private KuContainterFragment mKuContainerFragment;
+	private Button mRegisterButton;
 
-	// 委譲用のクラス
-	CloudBackendActivity mCloudBackendActivity;
-	
-    @Override
+
+	// Constructor
+    public MainActivity() {
+		super();
+	}
+
+	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-		// CloudBackendActivity の委譲 (Delegate)
-        mCloudBackendActivity = new CloudBackendActivity();
 
+        // 句を管理するクラスを作成
         mKuListManager = new KuListManager( this );
+        
+        // バックエンドと更新するために通信用クラスを設定
+		mKuListManager.initCloudBackend( getCloudBackend() );
+		mKuListManager.getKuListFromBE();
         
         // set listview
         setContentView(R.layout.activity_main);
+        
+        // get button
+        mRegisterButton = (Button) findViewById( R.id.registerButton);
         
 
         // Set up the action bar.
@@ -47,7 +57,7 @@ public class MainActivity extends FragmentActivity
         actionBar.addTab(actionBar.newTab().setText(R.string.title_section2).setTabListener(this));
         actionBar.addTab(actionBar.newTab().setText(R.string.title_section3).setTabListener(this));
         
-     // 句を入れるFragment の初期化
+        // 句を入れるFragment の初期化
         mKuContainerFragment = new KuContainterFragment();
         mKuContainerFragment.setKuListManager( mKuListManager );
 
@@ -62,6 +72,11 @@ public class MainActivity extends FragmentActivity
     }
 
     @Override
+	protected void onPostCreate() {
+		super.onPostCreate();
+	}
+
+	@Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         if (savedInstanceState.containsKey(STATE_SELECTED_NAVIGATION_ITEM)) {
             getActionBar().setSelectedNavigationItem(
@@ -130,7 +145,11 @@ public class MainActivity extends FragmentActivity
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
 		// TODO Auto-generated method stub
-		
+	}
+	
+	// 登録ボタン
+	public void onRegisterButtonPressed(View view) {
+		Log.d(TAG, "登録ボタン押されたよ");
 	}
 
 }

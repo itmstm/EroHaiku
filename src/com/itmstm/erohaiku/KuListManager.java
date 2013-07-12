@@ -1,9 +1,20 @@
 package com.itmstm.erohaiku;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+import com.google.cloud.backend.android.CloudBackendMessaging;
+import com.google.cloud.backend.android.CloudCallbackHandler;
+import com.google.cloud.backend.android.CloudEntity;
+import com.google.cloud.backend.android.CloudQuery.Order;
+import com.google.cloud.backend.android.CloudQuery.Scope;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 public class KuListManager {
 	private static final int NUM_ADAPTERS = 3; // 上、中、下の３つの句
@@ -12,8 +23,15 @@ public class KuListManager {
 	private static ArrayAdapter<String> mKuUeListAdapter;
 	private static ArrayAdapter<String> mKuNakaListAdapter;
 	private static ArrayAdapter<String> mKuShitaListAdapter;
+
+	private List<CloudEntity> mResultList = new LinkedList<CloudEntity>();
 	
 	public static final String ARG_KU_LIST_MANAGER = "ku_list_manager";
+	private static final String KU_UE_ENTITY_NAME = "KU_UE";
+	private static final String KU_NAKA_ENTITY_NAME = "KU_NAKA";
+	private static final String KU_SHITA_ENTITY_NAME = "KU_SHITA";
+	protected static final String TAG = "KuListManager";
+
 	public enum KuPosition {
 		KU_UE,
 		KU_NAKA,
@@ -39,13 +57,17 @@ public class KuListManager {
 		return mShita;
 	}
 
+	private CloudBackendMessaging mCloudBackend;
+	private Context mContext;
+
 
 	KuListManager( Context context ) {
+		mContext = context;
 		initList();
-		initArrayAdapters( context );
+		initArrayAdapters();
 	}
 	 
-	private void initList() {
+	public void initList() {
 		mUeList = new ArrayList<String>();
 		mNakaList = new ArrayList<String>();
 		mShitaList = new ArrayList<String>();
@@ -71,10 +93,10 @@ public class KuListManager {
 		mShitaList.add( "富士さんさん");	
 	}
 
-	private void initArrayAdapters( Context context ) {
-		mKuUeListAdapter = new ArrayAdapter<String>( context, R.layout.ku_list_textview, mUeList );
-		mKuNakaListAdapter = new ArrayAdapter<String>( context, R.layout.ku_list_textview, mNakaList );
-		mKuShitaListAdapter = new ArrayAdapter<String>( context, R.layout.ku_list_textview, mShitaList );
+	private void initArrayAdapters() {
+		mKuUeListAdapter = new ArrayAdapter<String>( mContext, R.layout.ku_list_textview, mUeList );
+		mKuNakaListAdapter = new ArrayAdapter<String>( mContext, R.layout.ku_list_textview, mNakaList );
+		mKuShitaListAdapter = new ArrayAdapter<String>( mContext, R.layout.ku_list_textview, mShitaList );
 	}
 
 	public ArrayList<String> getUeList() {
@@ -127,5 +149,45 @@ public class KuListManager {
 			mShita = mShitaList.get(mSelectedItem);
 			break;
 		}
+	}
+
+	public void initCloudBackend(CloudBackendMessaging cloudBackend) {
+		// TODO Auto-generated method stub
+		mCloudBackend = cloudBackend;
+	}
+
+	public void getKuListFromBE() {
+		// BEから句のリストを取得する
+
+		// create a response handler that will receive the query result or an error
+	    CloudCallbackHandler<List<CloudEntity>> handler = new CloudCallbackHandler<List<CloudEntity>>() {
+
+			@Override
+		    public void onComplete(List<CloudEntity> results) {
+		    	mResultList = results;
+		        updateKuList();
+		        Log.d(TAG, "onComplete called");
+		    }
+	
+		    @Override
+		    public void onError(IOException exception) {
+		    	handleEndpointException(exception);
+	    	}
+	    };
+
+	    // execute the query with the handler
+	    mCloudBackend.listByKind(KU_UE_ENTITY_NAME, CloudEntity.PROP_CREATED_AT, Order.DESC, 50,
+	        Scope.FUTURE_AND_PAST, handler);
+	    
+	    Log.d(TAG, "getKuListFromBE() done");
+	}
+
+	protected void updateKuList() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void handleEndpointException(IOException e) {
+		Toast.makeText(mContext, e.toString(), Toast.LENGTH_LONG).show();
 	}
 }
