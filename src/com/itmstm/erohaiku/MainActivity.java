@@ -150,6 +150,10 @@ public class MainActivity extends CloudBackendActivity
 	// 登録ボタン
 	public void onRegisterButtonPressed(View view) {
 		Log.d(TAG, "登録ボタン押されたよ");
+		// 本来ならここで句の登録ページにいく
+		// 実装テストのために、現状は単純にCloudEntitiyの登録だけ行う
+		mKuListManager.debugRegisterKu( "Test Erohaiku" );
+		
 	}
 
 }

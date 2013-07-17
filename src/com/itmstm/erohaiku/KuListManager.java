@@ -30,6 +30,9 @@ public class KuListManager {
 	private static final String KU_UE_ENTITY_NAME = "KU_UE";
 	private static final String KU_NAKA_ENTITY_NAME = "KU_NAKA";
 	private static final String KU_SHITA_ENTITY_NAME = "KU_SHITA";
+	private static final String KU_UE_ENTITY_NAME_DBG = "KU_UE_DBG";
+	private static final String KU_NAKA_ENTITY_NAME_DBG = "KU_NAKA_DBG";
+	private static final String KU_SHITA_ENTITY_NAME_DBG = "KU_SHITA_DBG";
 	protected static final String TAG = "KuListManager";
 
 	public enum KuPosition {
@@ -176,18 +179,56 @@ public class KuListManager {
 	    };
 
 	    // execute the query with the handler
-	    mCloudBackend.listByKind(KU_UE_ENTITY_NAME, CloudEntity.PROP_CREATED_AT, Order.DESC, 50,
+	    mCloudBackend.listByKind(KU_UE_ENTITY_NAME_DBG, CloudEntity.PROP_CREATED_AT, Order.DESC, 50,
 	        Scope.FUTURE_AND_PAST, handler);
 	    
 	    Log.d(TAG, "getKuListFromBE() done");
 	}
 
+	/**
+	 * mResultList内容をViewに反映する。
+	 * mResultListのCloudEntity取得は行わない。
+	 * まだ未完成。
+	 * 
+	 */
 	protected void updateKuList() {
 		// TODO Auto-generated method stub
-		
+		for( CloudEntity entity : mResultList ) {
+			Log.d(TAG, "Created at: " + entity.getCreatedAt());
+		}
 	}
 
 	protected void handleEndpointException(IOException e) {
 		Toast.makeText(mContext, e.toString(), Toast.LENGTH_LONG).show();
+	}
+
+	/**
+	 * Google mobile backendへCloudEntitiyが登録出来るかの単純なテストファンクション。
+	 * テスト目的のためだけの関数なので、いずれ消す。
+	 * 
+	 * @param str 登録する文字列
+	 */
+	public void debugRegisterKu(String str ) {
+		CloudEntity newPost = new CloudEntity( KU_UE_ENTITY_NAME_DBG );
+		newPost.put( "Ku", str );
+		
+		CloudCallbackHandler<CloudEntity> handler = new CloudCallbackHandler<CloudEntity>() {
+		      @Override
+		      public void onComplete(final CloudEntity result) {
+		        mResultList.add(0, result);
+		        updateKuList();
+		        //etMessage.setText("");
+		        //btSend.setEnabled(true);
+		      }
+
+		      @Override
+		      public void onError(final IOException exception) {
+		        handleEndpointException(exception);
+		      }
+		    };
+
+		    // execute the insertion with the handler
+		    mCloudBackend.insert(newPost, handler);
+		    //btSend.setEnabled(false);;
 	}
 }
