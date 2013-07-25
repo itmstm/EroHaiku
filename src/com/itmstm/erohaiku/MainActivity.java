@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.google.cloud.backend.android.CloudBackendActivity;
+import com.itmstm.erohaiku.fragment.KuContainterFragment;
+import com.itmstm.erohaiku.fragment.KuListFragment;
 
 public class MainActivity extends CloudBackendActivity
 	implements ActionBar.TabListener, KuListFragment.MainActivityCallback {
