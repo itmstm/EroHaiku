@@ -1,4 +1,4 @@
-package com.itmstm.erohaiku;
+package com.itmstm.erohaiku.element;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,6 +10,8 @@ import com.google.cloud.backend.android.CloudCallbackHandler;
 import com.google.cloud.backend.android.CloudEntity;
 import com.google.cloud.backend.android.CloudQuery.Order;
 import com.google.cloud.backend.android.CloudQuery.Scope;
+import com.itmstm.erohaiku.R;
+import com.itmstm.erohaiku.R.layout;
 
 import android.content.Context;
 import android.util.Log;
@@ -64,7 +66,7 @@ public class KuListManager {
 	private Context mContext;
 
 
-	KuListManager( Context context ) {
+	public KuListManager( Context context ) {
 		mContext = context;
 		initList();
 		initArrayAdapters();

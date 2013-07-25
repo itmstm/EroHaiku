@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.google.cloud.backend.android.CloudBackendActivity;
+import com.itmstm.erohaiku.element.KuListManager;
 import com.itmstm.erohaiku.fragment.KuContainterFragment;
 import com.itmstm.erohaiku.fragment.KuListFragment;
 
@@ -48,7 +49,6 @@ public class MainActivity extends CloudBackendActivity
         
         // get button
         mRegisterButton = (Button) findViewById( R.id.registerButton);
-        
 
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();

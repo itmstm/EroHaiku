@@ -1,9 +1,9 @@
 package com.itmstm.erohaiku.fragment;
 
-import com.itmstm.erohaiku.KuListManager;
 import com.itmstm.erohaiku.R;
 import com.itmstm.erohaiku.R.id;
 import com.itmstm.erohaiku.R.layout;
+import com.itmstm.erohaiku.element.KuListManager;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

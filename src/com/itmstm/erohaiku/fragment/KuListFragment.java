@@ -1,10 +1,10 @@
 package com.itmstm.erohaiku.fragment;
 
-import com.itmstm.erohaiku.KuListManager;
 import com.itmstm.erohaiku.R;
-import com.itmstm.erohaiku.KuListManager.KuPosition;
 import com.itmstm.erohaiku.R.id;
 import com.itmstm.erohaiku.R.layout;
+import com.itmstm.erohaiku.element.KuListManager;
+import com.itmstm.erohaiku.element.KuListManager.KuPosition;
 
 import android.app.Activity;
 import android.os.Bundle;
