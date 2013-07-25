@@ -14,14 +14,13 @@ import android.widget.ListView;
 public class KuListFragment extends Fragment {
 	private KuListManager mKuListManager;
 
-	OnListItemSelectedListener mCallback;
+	MainActivityCallback mCallback;
 	private ListView mListView;
 
-	public interface OnListItemSelectedListener {
+	public interface MainActivityCallback {
         public void onListItemSelected(int position);
-		//void onTabUnselected(Tab tab, FragmentTransaction fragmentTransaction);
-		//void onTabSelected(Tab tab, FragmentTransaction fragmentTransaction);
-		//void onTabReselected(Tab tab, FragmentTransaction fragmentTransaction);
+        public int getSelectedTab();
+		public void setSelectedTab(int i);
     }
 
 	@Override
@@ -31,7 +30,7 @@ public class KuListFragment extends Fragment {
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
         try {
-            mCallback = (OnListItemSelectedListener) activity;
+            mCallback = (MainActivityCallback) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnHeadlineSelectedListener");
@@ -49,15 +48,12 @@ public class KuListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
     	
-    	// 引数を抽出
-    	int selectedTab = getArguments().getInt(ARG_SECTION_NUMBER);
-    	
         // ListviewをXML layoutからinflate
         View view = inflater.inflate(R.layout.ku_list_fragment, container, false);
         mListView = (ListView) view.findViewById(R.id.ku_frag_list_view);
 
 	    // 句のリストを表示
-        showKuList(selectedTab);
+        showKuList( mCallback.getSelectedTab() );
         
         // listviewにListenerをセット
         mListView.setOnItemClickListener(new OnItemClickListener() {
@@ -71,6 +67,22 @@ public class KuListFragment extends Fragment {
 				
 				KuListManager.setSelectedItem( position );
 				mCallback.onListItemSelected(position);
+				
+				// 次の句（タブ）に移動する
+				switch( mCallback.getSelectedTab() ) {
+				case 1: // UE
+					mCallback.setSelectedTab( 2 );
+					break;
+				case 2: // Naka
+					mCallback.setSelectedTab( 3 );
+					break;
+				case 3: // Shita
+					mCallback.setSelectedTab( 1 );
+					break;
+				default:
+					//
+				}
+				showKuList( mCallback.getSelectedTab() );
 			};
         });
         

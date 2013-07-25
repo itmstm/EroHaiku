@@ -14,13 +14,14 @@ import android.widget.Button;
 import com.google.cloud.backend.android.CloudBackendActivity;
 
 public class MainActivity extends CloudBackendActivity
-	implements ActionBar.TabListener, KuListFragment.OnListItemSelectedListener {
+	implements ActionBar.TabListener, KuListFragment.MainActivityCallback {
 
     private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 	private static final String TAG = "MainActivity";
 	private KuListManager mKuListManager;
 	private int mSelectedTab;
 	private KuContainterFragment mKuContainerFragment;
+	private KuListFragment mKuListFragment;
 	private Button mRegisterButton;
 
 
@@ -61,11 +62,20 @@ public class MainActivity extends CloudBackendActivity
         mKuContainerFragment = new KuContainterFragment();
         mKuContainerFragment.setKuListManager( mKuListManager );
 
+        // Fragment managerのPendingタスクの非同期実行
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.ku_container, mKuContainerFragment)
                 .commit(); 
-
+        getSupportFragmentManager().executePendingTransactions();
+        
+        // 句リストを表示するFragmentの初期化
+        mKuListFragment = new KuListFragment();
+        mKuListFragment.setKuListManager( mKuListManager );
+        
         // Fragment managerのPendingタスクの非同期実行
+        getSupportFragmentManager().beginTransaction()
+        		.replace(R.id.container, mKuListFragment)
+                .commit();
         getSupportFragmentManager().executePendingTransactions();
         
         Log.d(TAG, "onCreate ends");
@@ -125,6 +135,12 @@ public class MainActivity extends CloudBackendActivity
         Log.d(TAG, "Tab selected:" + tab.getPosition());
     	mSelectedTab = tab.getPosition() + 1;
     	
+    	// 最初のコールではまだインスタンスが作成されていないのでNull Checkする
+    	if( mKuListFragment != null) {
+	    	mKuListFragment.showKuList(mSelectedTab);
+    	}
+    	
+    	/*
     	// Bundleでパラメータを渡す
     	Bundle args = new Bundle();
     	args.putInt(KuListFragment.ARG_SECTION_NUMBER, mSelectedTab );
@@ -140,6 +156,7 @@ public class MainActivity extends CloudBackendActivity
         
         // Fragment managerのPendingタスクの非同期実行
         getSupportFragmentManager().executePendingTransactions();		
+        */
 	}
 
 	@Override
@@ -154,6 +171,17 @@ public class MainActivity extends CloudBackendActivity
 		// 実装テストのために、現状は単純にCloudEntitiyの登録だけ行う
 		mKuListManager.debugRegisterKu( "Test Erohaiku" );
 		
+	}
+
+	@Override
+	public int getSelectedTab() {
+		return mSelectedTab;
+	}
+
+	@Override
+	public void setSelectedTab(int i) {
+		getActionBar().selectTab( getActionBar().getTabAt(i-1) );
+		mSelectedTab = i;
 	}
 
 }

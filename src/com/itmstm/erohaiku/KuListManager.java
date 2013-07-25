@@ -81,12 +81,31 @@ public class KuListManager {
 		mUeList.add( "夜の背に" );
 		mUeList.add( "もだえてる" );
 		mUeList.add( "いきりたつ" );
+		mUeList.add( "特大の" );
+		mUeList.add( "濡れている" );
+		mUeList.add( "脈を打つ" );
+		mUeList.add( "目覚めたら" );
+		mUeList.add( "隆々と" );
+		mUeList.add( "立ち上がれ" );
+		mUeList.add( "股間には" );
+		mUeList.add( "本能で" );
 		
 		// 中の句
 		mNakaList.add( "背後に忍ぶ");	
 		mNakaList.add( "頬を赤らめ");	
 		mNakaList.add( "ベッドの中には");	
+		mNakaList.add( "触り放題");	
 		mNakaList.add( "びしゃびしゃびしゃ");	
+		mNakaList.add( "一本杉は");	
+		mNakaList.add( "俺の分身");	
+		mNakaList.add( "波打ち際で");	
+		mNakaList.add( "ミトコンドリア");	
+		mNakaList.add( "勃つに勃たない");	
+		mNakaList.add( "キラリと光る");	
+		mNakaList.add( "ついに開いた");	
+		mNakaList.add( "ほのかに薫る");	
+		mNakaList.add( "野生のままの");	
+		mNakaList.add( "セクシー放題");	
 		
 		// 下 の句
 		mShitaList.add( "黒真珠");	
@@ -94,6 +113,14 @@ public class KuListManager {
 		mShitaList.add( "まつたけよ");	
 		mShitaList.add( "二つの目");	
 		mShitaList.add( "富士さんさん");	
+		mShitaList.add( "暴発だ");	
+		mShitaList.add( "二日酔い");	
+		mShitaList.add( "でくのぼう");	
+		mShitaList.add( "感触よ");	
+		mShitaList.add( "我が息子");	
+		mShitaList.add( "煩悩よ");	
+		mShitaList.add( "やり放題");	
+		mShitaList.add( "未開の地");	
 	}
 
 	private void initArrayAdapters() {
