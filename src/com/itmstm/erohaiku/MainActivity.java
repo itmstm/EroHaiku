@@ -121,15 +121,13 @@ public class MainActivity extends CloudBackendActivity
     }
 
 	@Override
-	public void onListItemSelected(int position) {
-		Log.d(TAG, "onListItemSelected: " + position );
-		mKuContainerFragment.setKu(mSelectedTab, position);
+	public void onListItemSelected() {
+		mKuContainerFragment.setKu(mSelectedTab);
 	}
 
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -173,6 +171,18 @@ public class MainActivity extends CloudBackendActivity
 		// 実装テストのために、現状は単純にCloudEntitiyの登録だけ行う
 		mKuListManager.debugRegisterKu( "Test Erohaiku" );
 		
+	}
+	
+	//　ランダムピッカーボタン
+	public void onRandomPickerPressed(View view) {
+		Log.d(TAG, "ランダムボタン押されたよ");
+		mKuContainerFragment.randomPick();
+	}
+
+	// クリアボタン
+	public void onClearButtonPressed(View view) {
+		Log.d(TAG, "クリアボタン押されたよ");
+		mKuContainerFragment.clearKu();
 	}
 
 	@Override

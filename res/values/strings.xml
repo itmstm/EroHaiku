@@ -11,5 +11,7 @@
     <string name="title_activity_main">えろはいく</string>
     <string name="ku_frag_mesg">&lt;選択して下さい&gt;</string>
     <string name="register_button_string">登録</string>
+    <string name="random_picker_button_string">ランダムに選ぶ</string>
+    <string name="clear_button_string">クリア</string>
 
 </resources>

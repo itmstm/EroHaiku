@@ -45,17 +45,33 @@ public class KuContainterFragment extends Fragment {
 	}
 	
 	public void setUeKu() {
-	    mUeTextView.setText( KuListManager.getUeKu() );
+	    mUeTextView.setText( mKuListManager.getUeKu() );
 	}
 	public void setNakaKu() {
-	    mNakaTextView.setText( KuListManager.getNakaKu() );
+	    mNakaTextView.setText( mKuListManager.getNakaKu() );
 	}
 	public void setShitaKu() {
-	    mShitaTextView.setText( KuListManager.getShitaKu() );
+	    mShitaTextView.setText( mKuListManager.getShitaKu() );
 	}
 
-	// リストアイテムが選択された際にコールバック経由で呼ばれる
-	public void setKu(int selectedTab, int position) {
+	private void setUeRandomKu() {
+	    mUeTextView.setText( mKuListManager.getUeRandomKu() );
+	}
+	private void setNakaRandomKu() {
+	    mNakaTextView.setText( mKuListManager.getNakaRandomKu() );
+	}
+	private void setShitaRandomKu() {
+	    mShitaTextView.setText( mKuListManager.getShitaRandomKu() );
+	}
+	
+	
+	/**
+	 * リストアイテムが選択された際にコールバック経由で呼ばれる。
+	 * 指定されたタブ（selectedTab)の句をアップデートする
+	 * 
+	 * @param selectedTab
+	 */
+	public void setKu( int selectedTab ) {
 		
 		// 呼ばれたときに選択されているタブの位置によって句を設定する
 		switch( selectedTab) {
@@ -70,6 +86,24 @@ public class KuContainterFragment extends Fragment {
 			break;
 		default:
 		}
+	}
+
+	/**
+	 * 上・中・下の句をランダムに選んで表示する
+	 */
+	public void randomPick() {
+		setUeRandomKu();
+		setNakaRandomKu();
+		setShitaRandomKu();
+	}
+
+	/**
+	 * 句コンテナの中身をクリアする
+	 */
+	public void clearKu() {
+		mUeTextView.setText( null );
+		mNakaTextView.setText( null );
+		mShitaTextView.setText( null );
 	}
 
 }

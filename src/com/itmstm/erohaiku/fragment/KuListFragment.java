@@ -24,7 +24,7 @@ public class KuListFragment extends Fragment {
 	private ListView mListView;
 
 	public interface MainActivityCallback {
-        public void onListItemSelected(int position);
+        public void onListItemSelected();
         public int getSelectedTab();
 		public void setSelectedTab(int i);
     }
@@ -72,7 +72,7 @@ public class KuListFragment extends Fragment {
 				Log.d(TAG,  "Position: " + position );
 				
 				KuListManager.setSelectedItem( position );
-				mCallback.onListItemSelected(position);
+				mCallback.onListItemSelected();
 				
 				// 次の句（タブ）に移動する
 				switch( mCallback.getSelectedTab() ) {

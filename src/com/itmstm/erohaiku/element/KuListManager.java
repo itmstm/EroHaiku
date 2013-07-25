@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import com.google.cloud.backend.android.CloudBackendMessaging;
 import com.google.cloud.backend.android.CloudCallbackHandler;
@@ -18,6 +19,10 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+/**
+ * @author masatomo.ito
+ *
+ */
 public class KuListManager {
 	private static final int NUM_ADAPTERS = 3; // 上、中、下の３つの句
 	private static int mSelectedItem;
@@ -50,26 +55,30 @@ public class KuListManager {
 	private static String mNaka;
 	private static String mShita;
 
-	public static String getUeKu() {
+	public String getUeKu() {
 		return mUe;
 	}
 
-	public static String getNakaKu() {
+	public String getNakaKu() {
 		return mNaka;
 	}
 
-	public static String getShitaKu() {
+	public String getShitaKu() {
 		return mShita;
 	}
 
 	private CloudBackendMessaging mCloudBackend;
 	private Context mContext;
+	private Random mRandom;
 
 
 	public KuListManager( Context context ) {
 		mContext = context;
 		initList();
 		initArrayAdapters();
+		
+		// RNGの初期化 (epochをseedとする)
+		mRandom = new Random( System.currentTimeMillis() );
 	}
 	 
 	public void initList() {
@@ -259,5 +268,24 @@ public class KuListManager {
 		    // execute the insertion with the handler
 		    mCloudBackend.insert(newPost, handler);
 		    //btSend.setEnabled(false);;
+	}
+
+	/**
+	 * 指定された値より小さいランダムな値を返す
+	 * @param num
+	 * @return ランダムな値（＜size)
+	 */
+	private int getRamdomNum(int num) {
+		return mRandom.nextInt( num );
+	}
+
+	public String getUeRandomKu() {
+		return mUeList.get(getRamdomNum( mUeList.size() ));
+	}
+	public String getNakaRandomKu() {
+		return mNakaList.get(getRamdomNum( mNakaList.size() ));
+	}
+	public String getShitaRandomKu() {
+		return mShitaList.get(getRamdomNum( mShitaList.size() ));
 	}
 }

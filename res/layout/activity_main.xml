@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FF66BB"
-        android:orientation="vertical" >
+        android:orientation="horizontal" >
 
         <Button
             android:id="@+id/registerButton"
@@ -15,6 +15,20 @@
             android:layout_height="wrap_content"
             android:onClick="onRegisterButtonPressed"
             android:text="@string/register_button_string" />
+
+        <Button
+            android:id="@+id/randomPickerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRandomPickerPressed"
+            android:text="@string/random_picker_button_string" />
+
+        <Button
+            android:id="@+id/clearButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClearButtonPressed"
+            android:text="@string/clear_button_string" />
 
     </LinearLayout>
     
