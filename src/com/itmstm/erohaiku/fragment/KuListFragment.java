@@ -20,6 +20,9 @@ import android.widget.ListView;
 public class KuListFragment extends Fragment {
 	private KuListManager mKuListManager;
 
+	public static final String ARG_SECTION_NUMBER = "section_number";
+	protected static final String TAG = KuListFragment.class.getSimpleName();
+
 	MainActivityCallback mCallback;
 	private ListView mListView;
 
@@ -46,9 +49,6 @@ public class KuListFragment extends Fragment {
 	public KuListFragment() {
 		// constructor
     }
-
-	public static final String ARG_SECTION_NUMBER = "section_number";
-	protected static final String TAG = "KuListFragment";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

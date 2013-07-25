@@ -13,17 +13,18 @@ import android.widget.Button;
 
 import com.google.cloud.backend.android.CloudBackendActivity;
 import com.itmstm.erohaiku.element.KuListManager;
-import com.itmstm.erohaiku.fragment.KuContainterFragment;
+import com.itmstm.erohaiku.fragment.KuContainerFragment;
 import com.itmstm.erohaiku.fragment.KuListFragment;
 
 public class MainActivity extends CloudBackendActivity
 	implements ActionBar.TabListener, KuListFragment.MainActivityCallback {
 
     private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
-	private static final String TAG = "MainActivity";
+	private static final String TAG = MainActivity.class.getSimpleName();
+
 	private KuListManager mKuListManager;
 	private int mSelectedTab;
-	private KuContainterFragment mKuContainerFragment;
+	private KuContainerFragment mKuContainerFragment;
 	private KuListFragment mKuListFragment;
 	private Button mRegisterButton;
 
@@ -61,7 +62,7 @@ public class MainActivity extends CloudBackendActivity
         actionBar.addTab(actionBar.newTab().setText(R.string.title_section3).setTabListener(this));
         
         // 句を入れるFragment の初期化
-        mKuContainerFragment = new KuContainterFragment();
+        mKuContainerFragment = new KuContainerFragment();
         mKuContainerFragment.setKuListManager( mKuListManager );
 
         // Fragment managerのPendingタスクの非同期実行

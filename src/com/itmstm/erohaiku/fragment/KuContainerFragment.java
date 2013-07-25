@@ -12,19 +12,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class KuContainterFragment extends Fragment {
+public class KuContainerFragment extends Fragment {
 
 	private KuListManager mKuListManager;
 	private TextView mUeTextView;
 	private TextView mNakaTextView;
 	private TextView mShitaTextView;
 
-	public KuContainterFragment() {
+	public KuContainerFragment() {
 		// constructor
     }
 
 	public static final String ARG_SECTION_NUMBER = "section_number";
-	protected static final String TAG = "KuListFragment";
+	protected static final String TAG = KuContainerFragment.class.getSimpleName();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

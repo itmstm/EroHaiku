@@ -40,7 +40,7 @@ public class KuListManager {
 	private static final String KU_UE_ENTITY_NAME_DBG = "KU_UE_DBG";
 	private static final String KU_NAKA_ENTITY_NAME_DBG = "KU_NAKA_DBG";
 	private static final String KU_SHITA_ENTITY_NAME_DBG = "KU_SHITA_DBG";
-	protected static final String TAG = "KuListManager";
+	protected static final String TAG = KuListManager.class.getSimpleName();
 
 	public enum KuPosition {
 		KU_UE,
