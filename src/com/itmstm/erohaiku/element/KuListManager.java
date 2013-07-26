@@ -197,6 +197,9 @@ public class KuListManager {
 		mCloudBackend = cloudBackend;
 	}
 
+	/**
+	 * Google mobile backendから句のリストを取得する 
+	 */
 	public void getKuListFromBE() {
 		// BEから句のリストを取得する
 
@@ -230,10 +233,11 @@ public class KuListManager {
 	 * 
 	 */
 	protected void updateKuList() {
-		// TODO Auto-generated method stub
+		Log.d(TAG, "updateKuList() called" );
 		for( CloudEntity entity : mResultList ) {
 			Log.d(TAG, "Created at: " + entity.getCreatedAt());
 		}
+		Log.d(TAG, "updateKuList() done" );
 	}
 
 	protected void handleEndpointException(IOException e) {
@@ -251,23 +255,23 @@ public class KuListManager {
 		newPost.put( "Ku", str );
 		
 		CloudCallbackHandler<CloudEntity> handler = new CloudCallbackHandler<CloudEntity>() {
-		      @Override
-		      public void onComplete(final CloudEntity result) {
-		        mResultList.add(0, result);
+			@Override
+		    public void onComplete(final CloudEntity result) {
+				mResultList.add(0, result);
 		        updateKuList();
 		        //etMessage.setText("");
 		        //btSend.setEnabled(true);
-		      }
+		    }
 
-		      @Override
-		      public void onError(final IOException exception) {
-		        handleEndpointException(exception);
-		      }
-		    };
+		    @Override
+		    public void onError(final IOException exception) {
+		    	handleEndpointException(exception);
+		    }
+	    };
 
-		    // execute the insertion with the handler
-		    mCloudBackend.insert(newPost, handler);
-		    //btSend.setEnabled(false);;
+	    // execute the insertion with the handler
+	    mCloudBackend.insert(newPost, handler);
+	    //btSend.setEnabled(false);;
 	}
 
 	/**
@@ -288,4 +292,5 @@ public class KuListManager {
 	public String getShitaRandomKu() {
 		return mShitaList.get(getRamdomNum( mShitaList.size() ));
 	}
+
 }

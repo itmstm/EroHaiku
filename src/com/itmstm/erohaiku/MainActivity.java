@@ -43,7 +43,7 @@ public class MainActivity extends CloudBackendActivity
         
         // バックエンドと更新するために通信用クラスを設定
 		mKuListManager.initCloudBackend( getCloudBackend() );
-		mKuListManager.getKuListFromBE();
+		//mKuListManager.getKuListFromBE();
         
         // set listview
         setContentView(R.layout.activity_main);
@@ -184,6 +184,11 @@ public class MainActivity extends CloudBackendActivity
 	public void onClearButtonPressed(View view) {
 		Log.d(TAG, "クリアボタン押されたよ");
 		mKuContainerFragment.clearKu();
+	}
+
+	// アップデートボタン
+	public void onUpdateButtonPressed(View view) {
+		mKuListManager.getKuListFromBE();
 	}
 
 	@Override
