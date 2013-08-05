@@ -9,6 +9,7 @@ import java.util.Random;
 import com.google.cloud.backend.android.CloudBackendMessaging;
 import com.google.cloud.backend.android.CloudCallbackHandler;
 import com.google.cloud.backend.android.CloudEntity;
+import com.google.cloud.backend.android.CloudQuery;
 import com.google.cloud.backend.android.CloudQuery.Order;
 import com.google.cloud.backend.android.CloudQuery.Scope;
 import com.itmstm.erohaiku.R;
@@ -219,9 +220,13 @@ public class KuListManager {
 	    	}
 	    };
 
-	    // execute the query with the handler
+		// execute the query with the handler
+	    /*
 	    mCloudBackend.listByKind(KU_UE_ENTITY_NAME_DBG, CloudEntity.PROP_CREATED_AT, Order.DESC, 50,
 	        Scope.FUTURE_AND_PAST, handler);
+        */
+	    CloudQuery cq = new CloudQuery( KU_UE_ENTITY_NAME_DBG );
+	    mCloudBackend.list(cq, handler);
 	    
 	    Log.d(TAG, "getKuListFromBE() done");
 	}
