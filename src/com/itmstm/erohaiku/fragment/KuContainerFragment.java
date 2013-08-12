@@ -4,11 +4,14 @@ import com.itmstm.erohaiku.R;
 import com.itmstm.erohaiku.R.id;
 import com.itmstm.erohaiku.R.layout;
 import com.itmstm.erohaiku.element.KuListManager;
+import com.itmstm.erohaiku.fragment.KuListFragment.MainActivityCallback;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -18,6 +21,12 @@ public class KuContainerFragment extends Fragment {
 	private TextView mUeTextView;
 	private TextView mNakaTextView;
 	private TextView mShitaTextView;
+	private MainActivityCallback mCallback;
+
+	public interface MainActivityCallback {
+		public void setSelectedTab(int i);
+		public void setShowKuList(int i);
+    }
 
 	public KuContainerFragment() {
 		// constructor
@@ -27,6 +36,20 @@ public class KuContainerFragment extends Fragment {
 	protected static final String TAG = KuContainerFragment.class.getSimpleName();
 
     @Override
+	public void onAttach(Activity activity) {
+		// TODO Auto-generated method stub
+		super.onAttach(activity);
+		
+		// Main activityへのcallbackを設定
+		try {
+            mCallback = (MainActivityCallback) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }	
+    }
+
+	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
     	
@@ -36,6 +59,46 @@ public class KuContainerFragment extends Fragment {
         mUeTextView = (TextView) view.findViewById(R.id.ku_frag_ue_text_view);
         mNakaTextView = (TextView) view.findViewById(R.id.ku_frag_naka_text_view);
         mShitaTextView = (TextView) view.findViewById(R.id.ku_frag_shita_text_view);
+
+        // Textviewをクリック可能に設定
+        mUeTextView.setClickable(true);
+        mNakaTextView.setClickable(true);
+        mShitaTextView.setClickable(true);
+        
+        
+        // TextViewにクリックリスナーを設定
+        mUeTextView.setOnClickListener( new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// タブの選択
+				mCallback.setSelectedTab( 1 );
+
+				// 句のアップデートをMainActivity経由でListFragmentに伝える
+				mCallback.setShowKuList(1);
+			}
+        });
+        
+        mNakaTextView.setOnClickListener( new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// タブの選択
+				mCallback.setSelectedTab( 2 );
+
+				// 句のアップデートをMainActivity経由でListFragmentに伝える
+				mCallback.setShowKuList(2);
+			}
+        });
+        
+        mShitaTextView.setOnClickListener( new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// タブの選択
+				mCallback.setSelectedTab( 3 );
+				
+				// 句のアップデートをMainActivity経由でListFragmentに伝える
+				mCallback.setShowKuList(3);
+			}
+        });
 
         return view;
     }

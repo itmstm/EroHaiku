@@ -17,7 +17,9 @@ import com.itmstm.erohaiku.fragment.KuContainerFragment;
 import com.itmstm.erohaiku.fragment.KuListFragment;
 
 public class MainActivity extends CloudBackendActivity
-	implements ActionBar.TabListener, KuListFragment.MainActivityCallback {
+	implements ActionBar.TabListener, 
+			   KuListFragment.MainActivityCallback, 
+			   KuContainerFragment.MainActivityCallback {
 
     private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 	private static final String TAG = MainActivity.class.getSimpleName();
@@ -141,23 +143,6 @@ public class MainActivity extends CloudBackendActivity
 	    	mKuListFragment.showKuList(mSelectedTab);
     	}
     	
-    	/*
-    	// Bundleでパラメータを渡す
-    	Bundle args = new Bundle();
-    	args.putInt(KuListFragment.ARG_SECTION_NUMBER, mSelectedTab );
-    	
-    	 // 句のリストを表示するFragmentの初期化
-        KuListFragment kuListFragment = new KuListFragment();
-        kuListFragment.setArguments(args);
-        
-        kuListFragment.setKuListManager( mKuListManager );
-        
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, kuListFragment)
-                .commit();
-        
-        // Fragment managerのPendingタスクの非同期実行
-        getSupportFragmentManager().executePendingTransactions();		
-        */
 	}
 
 	@Override
@@ -200,6 +185,13 @@ public class MainActivity extends CloudBackendActivity
 	public void setSelectedTab(int i) {
 		getActionBar().selectTab( getActionBar().getTabAt(i-1) );
 		mSelectedTab = i;
+	}
+
+	@Override
+	public void setShowKuList(int i) {
+		if( mKuListFragment != null) {
+	    	mKuListFragment.showKuList( i );
+    	}	
 	}
 
 }

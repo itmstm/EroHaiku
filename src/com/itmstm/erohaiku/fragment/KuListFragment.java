@@ -23,7 +23,7 @@ public class KuListFragment extends Fragment {
 	public static final String ARG_SECTION_NUMBER = "section_number";
 	protected static final String TAG = KuListFragment.class.getSimpleName();
 
-	MainActivityCallback mCallback;
+	private MainActivityCallback mCallback;
 	private ListView mListView;
 
 	public interface MainActivityCallback {
